@@ -1,0 +1,54 @@
+[submodule "Boost-for-Android"]
+	path = Boost-for-Android
+	url=https://github.com/moritz-wundke/Boost-for-Android.git
+[submodule "fftw3"]
+	path = fftw3
+	url = https://github.com/FFTW/fftw3.git
+[submodule "libzmq"]
+	path = libzmq
+	url = https://github.com/zeromq/libzmq.git
+[submodule "openssl"]
+	path = openssl
+	url = git://git.openssl.org/openssl.git
+[submodule "thrift"]
+	path = thrift
+	url = https://github.com/apache/thrift.git
+[submodule "volk"]
+	path = volk
+	url = https://github.com/bastibl/volk.git
+[submodule "gnuradio"]
+	path = gnuradio
+	url = https://github.com/bastibl/gnuradio.git
+[submodule "libgmp"]
+	path = libgmp
+	url = https://github.com/sethtroisi/libgmp.git
+[submodule "libusb"]
+	path = libusb
+	url = https://github.com/bastibl/libusb.git
+[submodule "hackrf"]
+	path = hackrf
+	url = https://github.com/bastibl/hackrf.git
+[submodule "gr-osmosdr"]
+	path = gr-osmosdr
+	url = https://github.com/bastibl/gr-osmosdr.git
+[submodule "gr-grand"]
+	path = gr-grand
+	url = https://github.com/bastibl/gr-grand.git
+[submodule "uhd"]
+	path = uhd
+	url = https://github.com/bastibl/uhd.git
+[submodule "gr-clenabled"]
+	path = gr-clenabled
+	url = https://github.com/ghostop14/gr-clenabled.git
+[submodule "gr-sched"]
+	path = gr-sched
+	url = https://github.com/bastibl/gr-sched.git
+[submodule "rtl-sdr"]
+	path = rtl-sdr
+	url = https://github.com/bastibl/rtl-sdr.git
+[submodule "gr-ieee802-15-4"]
+	path = gr-ieee802-15-4
+	url = https://github.com/bastibl/gr-ieee802-15-4.git
+[submodule "gr-ieee802-11"]
+	path = gr-ieee802-11
+	url = https://github.com/bastibl/gr-ieee802-11.git
