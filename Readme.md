@@ -1,10 +1,12 @@
 # GNU Radio Android Toolchain
 
+<img src="gr-android.png" alt="GNU Radio Android" align="right" width="200">
+
 This is a development environment for [GNU Radio](https://www.gnuradio.org/) on Android. It provides a real-time stream-data processing framework for Android, targeted towards (but not limited to) software defined radio systems.
 
 ## Features
 
-- Supports the most recent GNU Radio version (v3.8). 
+- Supports the most recent GNU Radio version (v3.8).
 - Supports 32-bit and 64-bit ARM architectures (i.e., `armeabi-v7a` and `arm64-v8a`).
 - Supports popular hardware frontends (RTL-SDR, HackRF, Ettus B2XX).
 - Supports interfacing Android hardware (mic, speaker, accelerometer, ...) through [gr-grand](https://github.com/trondeau/gr-grand).
