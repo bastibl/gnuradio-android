@@ -49,7 +49,7 @@ RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} --licenses
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "ndk;20.0.5594570"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
-RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;30.0.0-rc2"
+RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;30.0.0"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "cmdline-tools;latest"
 
