@@ -2,7 +2,7 @@
 
 <img src="gr-android.png" alt="GNU Radio Android" align="right" width="200">
 
-This is a development environment for [GNU Radio](https://www.gnuradio.org/) on Android. It provides a real-time stream-data processing framework for Android, targeted towards (but not limited to) software defined radio systems.
+This is a development environment for [GNU Radio](https://www.gnuradio.org/) on Android. It provides a real-time stream-data processing framework for Android, targeted towards (but not limited to) software defined radio systems. More detailed information is available in [the accompanying paper](https://www.bastibl.net/bib/bloessl2020hardware/).
 
 ## Features
 
@@ -135,3 +135,14 @@ The B2XX series of devices uses a rather complicated initialization procedure: t
 ## Credits
 
 This toolchain is based on an earlier [Android port by Tom Rondeau](http://www.trondeau.com/home/2016/4/1/better-android-support).
+
+## Publication
+
+If you use this toolchain, we would appreciate a reference to:
+
+<ul>
+<li>
+<a href="http://dx.doi.org/10.1145/3411276.3412184"><img src="https://www.bastibl.net/bib/icons/ACM-logo.gif" title="ACM" alt=""></a> <a class="bibauthorlink" href="https://www.bastibl.net/">Bastian Bloessl</a>, Lars Baumgärtner and Matthias Hollick, “<strong>Hardware-Accelerated Real-Time Stream Data Processing on Android with GNU Radio</strong>,” Proceedings of 14th International Workshop on Wireless Network Testbeds, Experimental evaluation &amp; Characterization (WiNTECH’20), London, UK, September 2020.
+ <small>[<a href="http://dx.doi.org/10.1145/3411276.3412184">DOI</a>, <a href="https://www.bastibl.net/bib/bloessl2020hardware/bloessl2020hardware.bib">BibTeX</a>, <a href="https://www.bastibl.net/bib/bloessl2020hardware/">PDF and Details…</a>]</small></p>
+</li>
+</ul>
