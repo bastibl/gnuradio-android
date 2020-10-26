@@ -23,7 +23,7 @@ This is a development environment for [GNU Radio](https://www.gnuradio.org/) on 
 
 ## Requirements
 
-- Android phone or tablet that supports Android API level 28, introduced with Android 9 *Pie*. (Can be reduced if necessary.)
+- Android phone or tablet that supports Android API level 29, introduced with Android 10 *Q*.
 - ~18Gb disk space for the Docker container.
 - USB-OTG adapter to connect an SDR. (Some USB-C multi-adapters work as well.)
 
