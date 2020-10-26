@@ -3,7 +3,7 @@ set -xe
 #############################################################
 ### CONFIG
 #############################################################
-export TOOLCHAIN_ROOT=${HOME}/Android/Sdk/ndk/20.0.5594570
+export TOOLCHAIN_ROOT=${HOME}/Android/Sdk/ndk/21.3.6528147
 export HOST_ARCH=linux-x86_64
 
 #############################################################
@@ -11,8 +11,9 @@ export HOST_ARCH=linux-x86_64
 #############################################################
 export SYS_ROOT=${TOOLCHAIN_ROOT}/sysroot
 export TOOLCHAIN_BIN=${TOOLCHAIN_ROOT}/toolchains/llvm/prebuilt/${HOST_ARCH}/bin
-export CC="${TOOLCHAIN_BIN}/aarch64-linux-android28-clang"
-export CXX="${TOOLCHAIN_BIN}/aarch64-linux-android28-clang++"
+export API_LEVEL=29
+export CC="${TOOLCHAIN_BIN}/aarch64-linux-android${API_LEVEL}-clang"
+export CXX="${TOOLCHAIN_BIN}/aarch64-linux-android${API_LEVEL}-clang++"
 export LD=${TOOLCHAIN_BIN}/aarch64-linux-android-ld
 export AR=${TOOLCHAIN_BIN}/aarch64-linux-android-ar
 export RANLIB=${TOOLCHAIN_BIN}/aarch64-linux-android-ranlib
@@ -31,7 +32,7 @@ mkdir -p ${PREFIX}
 cd ${BUILD_ROOT}/Boost-for-Android
 git clean -xdf
 
-./build-android.sh --boost=1.69.0 --toolchain=llvm --prefix=$(dirname ${PREFIX}) --arch=arm64-v8a --target-version=28 ${TOOLCHAIN_ROOT}
+./build-android.sh --boost=1.69.0 --toolchain=llvm --prefix=$(dirname ${PREFIX}) --arch=arm64-v8a --target-version=${API_LEVEL} ${TOOLCHAIN_ROOT}
 
 #############################################################
 ### ZEROMQ
@@ -54,7 +55,7 @@ wget -O $PREFIX/include/zmq.hpp https://raw.githubusercontent.com/zeromq/cppzmq/
 cd ${BUILD_ROOT}/fftw3
 git clean -xdf
 
-./bootstrap.sh --enable-single --enable-static --enable-threads \
+./configure --enable-single --enable-static --enable-threads \
   --enable-float  --enable-neon --disable-doc \
   --host=aarch64-linux-android \
   --prefix=$PREFIX
@@ -139,7 +140,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
   ../
@@ -158,7 +159,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -201,7 +202,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DDETACH_KERNEL_DRIVER=ON \
   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
@@ -221,9 +222,9 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
-  -DPYTHON_EXECUTABLE=/usr/bin/python \
+  -DPYTHON_EXECUTABLE=/usr/bin/python3 \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
   -DBoost_COMPILER=-clang \
@@ -249,8 +250,8 @@ cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
-  -DANDROID_NATIVE_API_LEVEL=28 \
-  -DPYTHON_EXECUTABLE=/usr/bin/python \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DPYTHON_EXECUTABLE=/usr/bin/python3 \
   -DENABLE_INTERNAL_VOLK=OFF \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -288,7 +289,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -316,7 +317,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -343,7 +344,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -370,7 +371,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -397,7 +398,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -424,7 +425,7 @@ make install
 # cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
 #   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
 #   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-#   -DANDROID_NATIVE_API_LEVEL=28 \
+#   -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
 #   -DANDROID_STL=c++_shared \
 #   -DBOOST_ROOT=${PREFIX} \
 #   -DBoost_DEBUG=OFF \
