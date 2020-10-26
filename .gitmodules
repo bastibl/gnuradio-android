@@ -21,7 +21,7 @@
 	url = https://github.com/bastibl/gnuradio.git
 [submodule "libgmp"]
 	path = libgmp
-	url = https://github.com/sethtroisi/libgmp.git
+	url = https://github.com/bastibl/libgmp.git
 [submodule "libusb"]
 	path = libusb
 	url = https://github.com/bastibl/libusb.git
