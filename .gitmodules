@@ -3,7 +3,7 @@
 	url=https://github.com/moritz-wundke/Boost-for-Android.git
 [submodule "fftw3"]
 	path = fftw3
-	url = https://github.com/FFTW/fftw3.git
+	url = https://github.com/bastibl/fftw-dist.git
 [submodule "libzmq"]
 	path = libzmq
 	url = https://github.com/zeromq/libzmq.git
