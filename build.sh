@@ -3,7 +3,7 @@ set -xe
 #############################################################
 ### CONFIG
 #############################################################
-export TOOLCHAIN_ROOT=${HOME}/Android/Sdk/ndk/20.0.5594570
+export TOOLCHAIN_ROOT=${HOME}/Android/Sdk/ndk/21.3.6528147
 export HOST_ARCH=linux-x86_64
 
 #############################################################
@@ -11,8 +11,9 @@ export HOST_ARCH=linux-x86_64
 #############################################################
 export SYS_ROOT=${TOOLCHAIN_ROOT}/sysroot
 export TOOLCHAIN_BIN=${TOOLCHAIN_ROOT}/toolchains/llvm/prebuilt/${HOST_ARCH}/bin
-export CC="${TOOLCHAIN_BIN}/armv7a-linux-androideabi28-clang"
-export CXX="${TOOLCHAIN_BIN}/armv7a-linux-androideabi28-clang++"
+export API_LEVEL=29
+export CC="${TOOLCHAIN_BIN}/armv7a-linux-androideabi${API_LEVEL}-clang"
+export CXX="${TOOLCHAIN_BIN}/armv7a-linux-androideabi${API_LEVEL}-clang++"
 export LD=${TOOLCHAIN_BIN}/arm-linux-androideabi-ld
 export AR=${TOOLCHAIN_BIN}/arm-linux-androideabi-ar
 export RANLIB=${TOOLCHAIN_BIN}/arm-linux-androideabi-ranlib
@@ -31,7 +32,7 @@ mkdir -p ${PREFIX}
 cd ${BUILD_ROOT}/Boost-for-Android
 git clean -xdf
 
-./build-android.sh --boost=1.69.0 --toolchain=llvm --prefix=$(dirname ${PREFIX}) --arch=armeabi-v7a --target-version=28 ${TOOLCHAIN_ROOT}
+./build-android.sh --boost=1.69.0 --toolchain=llvm --prefix=$(dirname ${PREFIX}) --arch=armeabi-v7a --target-version=${API_LEVEL} ${TOOLCHAIN_ROOT}
 
 #############################################################
 ### ZEROMQ
@@ -54,7 +55,7 @@ wget -O $PREFIX/include/zmq.hpp https://raw.githubusercontent.com/zeromq/cppzmq/
 cd ${BUILD_ROOT}/fftw3
 git clean -xdf
 
-./bootstrap.sh --enable-single --enable-static --enable-threads \
+./configure --enable-single --enable-static --enable-threads \
   --enable-float  --enable-neon --disable-doc \
   --host=arm-linux-androideabi \
   --prefix=$PREFIX
@@ -138,15 +139,15 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=armeabi-v7a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
   ../
 
 make -j ${NCORES}
 make install
 
-#############################################################
-### VOLK
+# #############################################################
+# ### VOLK
 #############################################################
 cd ${BUILD_ROOT}/volk
 git clean -xdf
@@ -156,8 +157,8 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=armeabi-v7a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
-  -DPYTHON_EXECUTABLE=/usr/bin/python \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DPYTHON_EXECUTABLE=/usr/bin/python3 \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
   -DBoost_USE_STATIC_LIBS=ON \
@@ -180,8 +181,8 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=armeabi-v7a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
-  -DPYTHON_EXECUTABLE=/usr/bin/python \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DPYTHON_EXECUTABLE=/usr/bin/python3 \
   -DENABLE_INTERNAL_VOLK=OFF \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
@@ -217,7 +218,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=armeabi-v7a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
   -DBoost_USE_STATIC_LIBS=ON \
@@ -242,7 +243,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=armeabi-v7a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
   -DBoost_USE_STATIC_LIBS=ON \
@@ -266,7 +267,7 @@ cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=armeabi-v7a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
   -DBoost_USE_STATIC_LIBS=ON \
