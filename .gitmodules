@@ -18,7 +18,7 @@
 	url = https://github.com/bastibl/volk.git
 [submodule "gnuradio"]
 	path = gnuradio
-	url = https://github.com/bastibl/gnuradio.git
+	url = https://github.com/adisuciu/gnuradio.git
 [submodule "libgmp"]
 	path = libgmp
 	url = https://github.com/bastibl/libgmp.git
