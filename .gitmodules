@@ -24,7 +24,7 @@
 	url = https://github.com/bastibl/libgmp.git
 [submodule "libusb"]
 	path = libusb
-	url = https://github.com/bastibl/libusb.git
+	url = https://github.com/xloem/libusb.git
 [submodule "hackrf"]
 	path = hackrf
 	url = https://github.com/bastibl/hackrf.git
