@@ -162,7 +162,7 @@ ${NDK}/ndk-build clean
 ${NDK}/ndk-build -B -r -R
 
 cp ${BUILD_ROOT}/libusb/android/libs/$ABI/* ${PREFIX}/lib
-mv ${PREFIX}/lib/libusb1.0.so $PREFIX/lib/libusb-1.0.so # IDK why this happens (?)
+cp ${PREFIX}/lib/libusb1.0.so $PREFIX/lib/libusb-1.0.so # IDK why this happens (?)
 cp ${BUILD_ROOT}/libusb/libusb/libusb.h ${PREFIX}/include
 popd
 }
