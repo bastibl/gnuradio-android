@@ -52,3 +52,15 @@
 [submodule "gr-ieee802-11"]
 	path = gr-ieee802-11
 	url = https://github.com/bastibl/gr-ieee802-11.git
+[submodule "gr-iio"]
+	path = gr-iio
+	url = https://github.com/analogdevicesinc/gr-iio
+[submodule "libiio"]
+	path = libiio
+	url = https://github.com/analogdevicesinc/libiio
+[submodule "libad9361-iio"]
+	path = libad9361-iio
+	url = https://github.com/analogdevicesinc/libad9361-iio
+[submodule "libxml2"]
+	path = libxml2
+	url = https://github.com/GNOME/libxml2
