@@ -350,16 +350,125 @@ make install
 popd
 }
 
+
+#############################################################
+### LIBXML2
+#############################################################
+build_libxml2 () {
+        pushd ${BUILD_ROOT}/libxml2
+        cd ../libxml2
+        git clean -xdf
+
+	build_with_cmake -DLIBXML2_WITH_LZMA=OFF -DLIBXML2_WITH_PYTHON=OFF
+
+        popd
+}
+
+#############################################################
+### LIBIIO
+#############################################################
+build_libiio () {
+        pushd ${BUILD_ROOT}/libiio
+        cd ../libiio
+        git clean -xdf
+
+	build_with_cmake -DHAVE_DNS_SD=OFF
+
+        popd
+}
+
+#############################################################
+### LIBAD9361
+#############################################################
+build_libad9361 () {
+        pushd ${BUILD_ROOT}/libad9361-iio
+        cd ../libad9361-iio
+        git clean -xdf
+
+	build_with_cmake
+
+        popd
+}
+
+#############################################################
+### GR IIO
+#############################################################
+build_gr-iio () {
+        pushd ${BUILD_ROOT}/gr-iio
+        cd ../gr-iio
+        git clean -xdf
+
+	build_with_cmake -DWITH_PYTHON=OFF
+
+        popd
+}
+
+#############################################################
+### LIBICONV
+#############################################################
+build_libiconv () {
+
+        pushd ${BUILD_ROOT}
+        rm -rf libiconv-1.15
+	tar xvf $DOWNLOADED_DEPS_PATH/libiconv-1.15.tar.gz
+        cd libiconv-1.15
+
+        LDFLAGS="$LDFLAGS_COMMON"
+        android_configure --enable-static=no --enable-shared=yes
+
+        popd
+}
+
+#############################################################
+### LIBFFI
+#############################################################
+build_libffi() {
+        pushd ${BUILD_ROOT}
+        rm -rf libffi-3.3
+        tar xvf $DOWNLOADED_DEPS_PATH/libffi-3.3.tar.gz
+        cd libffi-3.3
+
+        LDFLAGS="$LDFLAGS_COMMON"
+        android_configure --cache-file=android.cache
+
+        popd
+}
+
+#############################################################
+### GETTEXT
+#############################################################
+build_gettext() {
+        pushd ${BUILD_ROOT}
+        rm -rf gettext-0.21
+        tar xvf $DOWNLOADED_DEPS_PATH/gettext-0.21.tar.gz
+        cd gettext-0.21
+        #./gitsub.sh pull
+        #NOCONFIGURE=1 ./autogen.sh
+
+        LDFLAGS="$LDFLAGS_COMMON"
+        android_configure --cache-file=android.cache
+
+        popd
+}
+
 #build_boost
 #build_libzmq
 #build_fftw
-##build_openssl
-##build_thrift
+#build_openssl
+#build_thrift
 #build_libgmp
 #build_libusb
-##build_hackrf
+#build_hackrf
 #build_volk
 #build_gnuradio
-##build_gr-osmosdr
-##build_gr-grand
-##build_gr-sched
+#build_gr-osmosdr
+#build_gr-grand
+#build_gr-sched
+#build_libxml2
+#build_libiio
+#build_libad9361
+#build_gr-iio
+#build_libiconv
+#build_libffi
+#build_gettext
+#build_libiconv # HANDLE CIRCULAR DEP
