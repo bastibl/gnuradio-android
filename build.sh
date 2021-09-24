@@ -7,15 +7,53 @@ set -xe
 #############################################################
 ### DERIVED CONFIG
 #############################################################
+
+#source ./android_toolchain.sh $1 $2
+
 #export SYS_ROOT=$SYSROOT
-export BUILD_ROOT=$SCRIPT_HOME_DIR/gnuradio-android
 export PATH=${TOOLCHAIN_BIN}:${PATH}
 export PREFIX=$DEV_PREFIX
+export BUILD_FOLDER=./build_$ABI
+export DOWNLOADED_DEPS_PATH=$BUILD_ROOT/downloads
 #export PREFIX=${BUILD_ROOT}/toolchain/$ABI
 
 mkdir -p ${PREFIX}
 
 echo $SYS_ROOT $BUILD_ROOT $PATH $PREFIX
+
+
+download_dependencies() {
+        rm -rf $DOWNLOADED_DEPS_PATH
+        mkdir -p $DOWNLOADED_DEPS_PATH
+        pushd $DOWNLOADED_DEPS_PATH
+
+        wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
+        wget https://github.com/libffi/libffi/releases/download/v3.3/libffi-3.3.tar.gz
+        wget https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
+
+        popd
+}
+
+build_with_cmake() {
+        cp ${BUILD_ROOT}/android_cmake.sh .
+        rm -rf $BUILD_FOLDER
+        mkdir -p $BUILD_FOLDER
+        echo $PWD
+        ./android_cmake.sh $@ -DCMAKE_VERBOSE_MAKEFILE=ON .
+        cd $BUILD_FOLDER
+        make -j$JOBS
+        make -j$JOBS install
+}
+
+android_configure() {
+        cp ${BUILD_ROOT}/android_configure.sh .
+        ./android_configure.sh $@
+        make -j$JOBS LDFLAGS="$LDFLAGS"
+        make -j$JOBS install
+
+        LDFLAGS="$LDFLAGS_COMMON"
+}
+
 #############################################################
 ### BOOST
 #############################################################
@@ -210,7 +248,7 @@ $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DBoost_ARCHITECTURE=-a32 \
   -DENABLE_STATIC_LIBS=False \
   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
-  -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+  -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS_COMMON" \
   -DCMAKE_VERBOSE_MAKEFILE=ON \
   ../
 make -j ${JOBS}
@@ -228,7 +266,7 @@ git clean -xdf
 mkdir build
 cd build
 
-echo "$LDFLAGS"
+echo "$LDFLAGS_COMMON"
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
@@ -257,7 +295,7 @@ $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DENABLE_CTRLPORT_THRIFT=OFF \
   -DCMAKE_C_FLAGS="$CFLAGS" \
   -DCMAKE_CXX_FLAGS="$CPPFLAGS" \
-  -DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS" \
+  -DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS_COMMON" \
   -DCMAKE_VERBOSE_MAKEFILE=ON \
    ../
 make -j ${JOBS}
@@ -451,6 +489,7 @@ build_gettext() {
         popd
 }
 
+#download_dependencies
 #build_boost
 #build_libzmq
 #build_fftw
