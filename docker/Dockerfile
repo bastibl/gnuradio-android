@@ -9,7 +9,7 @@ RUN sed -i 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.li
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
-RUN apt-get install -y git vim wget unzip sudo xserver-xorg openjdk-11-jre cmake libtool build-essential pkg-config autogen ocaml ocamlbuild bison flex texinfo python-dev python-mako python-six swig3.0 python3-mako python3-numpy
+RUN apt-get install -y git vim wget unzip sudo xserver-xorg openjdk-11-jre cmake libtool build-essential pkg-config autogen ocaml ocamlbuild bison flex texinfo python-dev python-mako python-six swig3.0 python3-mako python3-numpy python3-distutils
 
 RUN groupadd -g 1000 -r $USER
 RUN useradd -u 1000 -g 1000 --create-home -r $USER
@@ -49,11 +49,11 @@ ENV ANDROID_HOME /home/$USER/Android/Sdk
 WORKDIR /home/$USER/src/tools/bin
 
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} --licenses
-RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-28"
-RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "ndk;20.0.5594570"
+RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-29"
+RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "ndk;21.3.6528147"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;30.0.0"
-RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "cmake;3.6.4111459"
+RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "cmake;3.10.2.4988404"
 RUN yes | ./sdkmanager --sdk_root=${ANDROID_HOME} "cmdline-tools;latest"
 
 WORKDIR /home/$USER/src/gnuradio-android
