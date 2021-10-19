@@ -8,7 +8,7 @@ set -xe
 ### DERIVED CONFIG
 #############################################################
 
-#source ./android_toolchain.sh $1 $2
+source ./android_toolchain.sh $1 $2
 
 #export SYS_ROOT=$SYSROOT
 export PATH=${TOOLCHAIN_BIN}:${PATH}
@@ -69,6 +69,10 @@ git clean -xdf
 
 ./build-android.sh --boost=1.69.0 --layout=system --toolchain=llvm --prefix=${PREFIX} --arch=$ABI --target-version=28 ${ANDROID_NDK_ROOT}
 popd
+}
+
+move_boost_libs() {
+	cp -R $DEV_PREFIX/$ABI/* $DEV_PREFIX
 }
 
 #############################################################
@@ -488,26 +492,3 @@ build_gettext() {
 
         popd
 }
-
-#download_dependencies
-#build_boost
-#build_libzmq
-#build_fftw
-#build_openssl
-#build_thrift
-#build_libgmp
-#build_libusb
-#build_hackrf
-#build_volk
-#build_gnuradio
-#build_gr-osmosdr
-#build_gr-grand
-#build_gr-sched
-#build_libxml2
-#build_libiio
-#build_libad9361
-#build_gr-iio
-#build_libiconv
-#build_libffi
-#build_gettext
-#build_libiconv # HANDLE CIRCULAR DEP

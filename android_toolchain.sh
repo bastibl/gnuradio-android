@@ -48,7 +48,7 @@ export TARGET_BINUTILS=i686-linux-android
 #################################
 fi
 
-export WORKDIR=$SCRIPT_HOME_DIR/deps_build_$TARGET_PREFIX
+export WORKDIR=$BUILD_ROOT/deps_build_$TARGET_PREFIX
 
 # This is just an empty directory where I want the built objects to be installed
 export DEV_PREFIX=$WORKDIR/out
@@ -92,7 +92,7 @@ echo QT_INSTALL_PREFIX=$QT_INSTALL_PREFIX
 echo JDK=$JDK
 echo NDK_VERSION=$NDK_VERSION
 echo JOBS=$JOBS
-echo SCRIPT_HOME_DIR=$SCRIPT_HOME_DIR
+echo BUILD_ROOT=$BUILD_ROOT
 #echo
 echo $TARGET_PREFIX$API
 #if [ $TARGET_PREFIX = "NO_ABI" ]; then
