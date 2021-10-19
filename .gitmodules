@@ -1,6 +1,6 @@
 [submodule "Boost-for-Android"]
 	path = Boost-for-Android
-	url=https://github.com/bastibl/Boost-for-Android.git
+	url=https://github.com/moritz-wundke/Boost-for-Android.git
 [submodule "fftw3"]
 	path = fftw3
 	url = https://github.com/bastibl/fftw-dist.git
