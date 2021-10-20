@@ -479,12 +479,9 @@ build_libffi() {
 ### GETTEXT
 #############################################################
 build_gettext() {
-        pushd ${BUILD_ROOT}
-        rm -rf gettext-0.21
-        tar xvf $DOWNLOADED_DEPS_PATH/gettext-0.21.tar.gz
-        cd gettext-0.21
-        #./gitsub.sh pull
-        #NOCONFIGURE=1 ./autogen.sh
+        pushd ${BUILD_ROOT}/gettext-0.21
+        cd ../gettext-0.21
+        git clean -xdf
 
         LDFLAGS="$LDFLAGS_COMMON"
         android_configure --cache-file=android.cache
