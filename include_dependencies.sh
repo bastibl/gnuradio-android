@@ -100,10 +100,10 @@ build_fftw() {
 ## ADI COMMENT: USE downloaded version instead (OCAML fail?)
 pushd ${BUILD_ROOT}/
 #wget http://www.fftw.org/fftw-3.3.9.tar.gz
-rm -rf fftw-3.3.9
-tar xvf fftw-3.3.9.tar.gz
+# rm -rf fftw-3.3.9
+# tar xvf fftw-3.3.9.tar.gz
 cd fftw-3.3.9
-#git clean -xdf
+git clean -xdf
 
 if [ "$ABI" = "armeabi-v7a" ] || [ "$ABI" = "arm64-v8a" ]; then
 	NEON_FLAG=--enable-neon
