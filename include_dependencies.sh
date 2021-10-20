@@ -28,7 +28,6 @@ download_dependencies() {
         pushd $DOWNLOADED_DEPS_PATH
 
         wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
-        wget https://github.com/libffi/libffi/releases/download/v3.3/libffi-3.3.tar.gz
         wget https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
 
         popd
@@ -465,13 +464,13 @@ build_libiconv () {
 ### LIBFFI
 #############################################################
 build_libffi() {
-        pushd ${BUILD_ROOT}
-        rm -rf libffi-3.3
-        tar xvf $DOWNLOADED_DEPS_PATH/libffi-3.3.tar.gz
-        cd libffi-3.3
+        pushd ${BUILD_ROOT}/libffi
+        cd ../libffi
+        git clean -xdf
 
+        ./autogen.sh
         LDFLAGS="$LDFLAGS_COMMON"
-        android_configure --cache-file=android.cache
+        android_configure --disable-docs --cache-file=android.cache --disable-multi-os-directory
 
         popd
 }

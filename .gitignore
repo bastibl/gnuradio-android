@@ -2,7 +2,6 @@ toolchain
 fftw-3.3.9/*
 downloads
 gettext*
-libffi*
 libiconv*
 .vscode/*
 deps_build_aarch64-linux-android/*
