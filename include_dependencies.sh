@@ -466,3 +466,160 @@ build_gettext() {
 
         popd
 }
+
+#############################################################
+### UHD
+#############################################################
+build_uhd() {
+cd ${BUILD_ROOT}/uhd/host
+git clean -xdf
+
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DANDROID_STL=c++_shared \
+  -DBOOST_ROOT=${PREFIX} \
+  -DBoost_DEBUG=OFF \
+  -DBoost_COMPILER=-clang \
+  -DBoost_USE_STATIC_LIBS=ON \
+  -DBoost_USE_DEBUG_LIBS=OFF \
+  -DBoost_ARCHITECTURE=-a64 \
+  -DENABLE_STATIC_LIBS=OFF \
+  -DENABLE_EXAMPLES=OFF \
+  -DENABLE_TESTS=OFF \
+  -DENABLE_UTILS=OFF \
+  -DENABLE_PYTHON_API=OFF \
+  -DENABLE_MANUAL=OFF \
+  -DENABLE_DOXYGEN=OFF \
+  -DENABLE_MAN_PAGES=OFF \
+  -DENABLE_OCTOCLOCK=OFF \
+  -DENABLE_E300=OFF \
+  -DENABLE_E320=OFF \
+  -DENABLE_N300=OFF \
+  -DENABLE_N320=OFF \
+  -DENABLE_X300=OFF \
+  -DENABLE_USRP2=OFF \
+  -DENABLE_N230=OFF \
+  -DENABLE_MPMD=OFF \
+  -DENABLE_B100=OFF \
+  -DENABLE_USRP1=OFF \
+  -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
+  ../
+make -j ${NCORES}
+make install
+}
+
+#############################################################
+### RTL SDR
+#############################################################
+build_rtl-sdr() {
+cd ${BUILD_ROOT}/rtl-sdr
+git clean -xdf
+
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DANDROID_STL=c++_shared \
+  -DDETACH_KERNEL_DRIVER=ON \
+  -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
+  ../
+
+make -j ${NCORES}
+make install
+}
+
+
+#############################################################
+### GR IEEE 802.15.4
+#############################################################
+build_gr-ieee-802-15-4() {
+cd ${BUILD_ROOT}/gr-ieee802-15-4
+git clean -xdf
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DANDROID_STL=c++_shared \
+  -DBOOST_ROOT=${PREFIX} \
+  -DBoost_DEBUG=OFF \
+  -DBoost_COMPILER=-clang \
+  -DBoost_USE_STATIC_LIBS=ON \
+  -DBoost_USE_DEBUG_LIBS=OFF \
+  -DBoost_ARCHITECTURE=-a64 \
+  -DGnuradio_DIR=${BUILD_ROOT}/toolchain/arm64-v8a/lib/cmake/gnuradio \
+  -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
+  ../
+
+make -j ${NCORES}
+make install
+}
+
+#############################################################
+### GR IEEE 802.11
+#############################################################
+build_gr-ieee-802-11() {
+cd ${BUILD_ROOT}/gr-ieee802-11
+git clean -xdf
+
+mkdir build
+cd build
+
+cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
+  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DANDROID_STL=c++_shared \
+  -DBOOST_ROOT=${PREFIX} \
+  -DBoost_DEBUG=OFF \
+  -DBoost_COMPILER=-clang \
+  -DBoost_USE_STATIC_LIBS=ON \
+  -DBoost_USE_DEBUG_LIBS=OFF \
+  -DBoost_ARCHITECTURE=-a64 \
+  -DGnuradio_DIR=${BUILD_ROOT}/toolchain/arm64-v8a/lib/cmake/gnuradio \
+  -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
+  ../
+
+make -j ${NCORES}
+make install
+}
+
+# #############################################################
+# ### GR CLENABLED
+# #############################################################
+build_gr-clenabled() {
+ cd ${BUILD_ROOT}/gr-clenabled
+ git clean -xdf
+
+ mkdir build
+ cd build
+
+ cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
+   -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+   -DANDROID_STL=c++_shared \
+   -DBOOST_ROOT=${PREFIX} \
+   -DBoost_DEBUG=OFF \
+   -DBoost_COMPILER=-clang \
+   -DBoost_USE_STATIC_LIBS=ON \
+   -DBoost_USE_DEBUG_LIBS=OFF \
+   -DBoost_ARCHITECTURE=-a64 \
+   -DGnuradio_DIR=${BUILD_ROOT}/toolchain/arm64-v8a/lib/cmake/gnuradio \
+   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
+   ../
+
+ make -j ${NCORES}
+ make install
+
+
+}

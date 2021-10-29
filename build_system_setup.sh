@@ -6,4 +6,4 @@ export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 export CMAKE=$HOME/Qt/Tools/CMake/bin/cmake
 export QT_INSTALL_PREFIX=$HOME/Qt/5.15.2/android
 export JDK=$HOME/jdk-16.0.2
-export BUILD_ROOT=$HOME/gnuradio-android
+export BUILD_ROOT=/home/adi/src/scopy-android-deps/gnuradio-android

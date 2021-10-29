@@ -17,10 +17,15 @@ build_libgmp
 build_libusb
 build_libiio
 build_libad9361
+build_hackrf
+build_uhd
+build_rtl-sdr
 build_volk
 build_gnuradio
 build_gr-iio
-build_hackrf
 build_gr-osmosdr
 build_gr-grand
 build_gr-sched
+build_gr-ieee-802-15-4
+build_gr-ieee-802-11
+build_gr-clenabled
