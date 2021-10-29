@@ -53,7 +53,7 @@ git clean -xdf
 
 #./build-android.sh --boost=1.69.0 --toolchain=llvm --prefix=$(dirname ${PREFIX}) --arch=$ABI --target-version=28 ${ANDROID_NDK_ROOT}
 
-./build-android.sh --boost=1.69.0 --layout=system --toolchain=llvm --prefix=${PREFIX} --arch=$ABI --target-version=28 ${ANDROID_NDK_ROOT}
+./build-android.sh --boost=1.69.0 --layout=system --toolchain=llvm --prefix=${PREFIX} --arch=$ABI --target-version=${API} ${ANDROID_NDK_ROOT}
 popd
 }
 
@@ -207,7 +207,7 @@ cd build
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DCMAKE_FIND_ROOT_PATH=${PREFIX} \
   ../
 
@@ -229,7 +229,7 @@ $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DPYTHON_EXECUTABLE=/usr/bin/python3 \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
@@ -261,7 +261,7 @@ $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DPYTHON_EXECUTABLE=/usr/bin/python3 \
   -DENABLE_INTERNAL_VOLK=OFF \
   -DBOOST_ROOT=${PREFIX} \
@@ -305,7 +305,7 @@ cd build
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DBOOST_ROOT=${PREFIX} \
   -DANDROID_STL=c++_shared \
   -DBoost_COMPILER=-clang \
@@ -334,7 +334,7 @@ cd build
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
@@ -363,7 +363,7 @@ $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
-  -DANDROID_NATIVE_API_LEVEL=28 \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_COMPILER=-clang \
   -DBoost_USE_STATIC_LIBS=ON \
@@ -447,7 +447,7 @@ build_libffi() {
         pushd ${BUILD_ROOT}/libffi
         git clean -xdf
 
-        ./autogen.sh
+#        ./autogen.sh
         LDFLAGS="$LDFLAGS_COMMON"
         android_configure --disable-docs --cache-file=android.cache --disable-multi-os-directory
 
@@ -462,6 +462,7 @@ build_gettext() {
         git clean -xdf
 
         LDFLAGS="$LDFLAGS_COMMON"
+#	NOCONFIGURE=yes ./autogen.sh
         android_configure --cache-file=android.cache
 
         popd
@@ -477,9 +478,9 @@ git clean -xdf
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
-  -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
+  -DANDROID_NATIVE_API_LEVEL=${API} \
   -DANDROID_STL=c++_shared \
   -DBOOST_ROOT=${PREFIX} \
   -DBoost_DEBUG=OFF \
@@ -522,7 +523,7 @@ git clean -xdf
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
   -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
@@ -546,7 +547,7 @@ mkdir build
 cd build
 
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
   -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
@@ -575,7 +576,7 @@ mkdir build
 cd build
 
 cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-  -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+  -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
   -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
   -DANDROID_STL=c++_shared \
@@ -604,7 +605,7 @@ build_gr-clenabled() {
  cd build
 
  cmake -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-   -DCMAKE_TOOLCHAIN_FILE=${TOOLCHAIN_ROOT}/build/cmake/android.toolchain.cmake \
+   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
    -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
    -DANDROID_NATIVE_API_LEVEL=${API_LEVEL} \
    -DANDROID_STL=c++_shared \

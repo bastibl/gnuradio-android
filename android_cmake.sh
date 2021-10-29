@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 $CMAKE \
 	-DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
