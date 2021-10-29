@@ -8,13 +8,10 @@ set -xe
 ### DERIVED CONFIG
 #############################################################
 
-source ./android_toolchain.sh $1 $2
-
 #export SYS_ROOT=$SYSROOT
 export PATH=${TOOLCHAIN_BIN}:${PATH}
 export PREFIX=$DEV_PREFIX
 export BUILD_FOLDER=./build_$ABI
-export DOWNLOADED_DEPS_PATH=$BUILD_ROOT/downloads
 #export PREFIX=${BUILD_ROOT}/toolchain/$ABI
 
 mkdir -p ${PREFIX}
@@ -22,16 +19,6 @@ mkdir -p ${PREFIX}
 echo $SYS_ROOT $BUILD_ROOT $PATH $PREFIX
 
 
-download_dependencies() {
-        rm -rf $DOWNLOADED_DEPS_PATH
-        mkdir -p $DOWNLOADED_DEPS_PATH
-        pushd $DOWNLOADED_DEPS_PATH
-
-        wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz
-        wget https://ftp.gnu.org/pub/gnu/gettext/gettext-0.21.tar.gz
-
-        popd
-}
 
 build_with_cmake() {
         cp ${BUILD_ROOT}/android_cmake.sh .
@@ -98,11 +85,10 @@ popd
 #############################################################
 build_fftw() {
 ## ADI COMMENT: USE downloaded version instead (OCAML fail?)
-pushd ${BUILD_ROOT}/
+pushd ${BUILD_ROOT}/fftw
 #wget http://www.fftw.org/fftw-3.3.9.tar.gz
 # rm -rf fftw-3.3.9
 # tar xvf fftw-3.3.9.tar.gz
-cd fftw-3.3.9
 git clean -xdf
 
 if [ "$ABI" = "armeabi-v7a" ] || [ "$ABI" = "arm64-v8a" ]; then
@@ -397,7 +383,6 @@ popd
 #############################################################
 build_libxml2 () {
         pushd ${BUILD_ROOT}/libxml2
-        cd ../libxml2
         git clean -xdf
 
 	build_with_cmake -DLIBXML2_WITH_LZMA=OFF -DLIBXML2_WITH_PYTHON=OFF
@@ -410,7 +395,6 @@ build_libxml2 () {
 #############################################################
 build_libiio () {
         pushd ${BUILD_ROOT}/libiio
-        cd ../libiio
         git clean -xdf
 
 	build_with_cmake -DHAVE_DNS_SD=OFF
@@ -423,7 +407,6 @@ build_libiio () {
 #############################################################
 build_libad9361 () {
         pushd ${BUILD_ROOT}/libad9361-iio
-        cd ../libad9361-iio
         git clean -xdf
 
 	build_with_cmake
@@ -436,7 +419,6 @@ build_libad9361 () {
 #############################################################
 build_gr-iio () {
         pushd ${BUILD_ROOT}/gr-iio
-        cd ../gr-iio
         git clean -xdf
 
 	build_with_cmake -DWITH_PYTHON=OFF
@@ -449,10 +431,8 @@ build_gr-iio () {
 #############################################################
 build_libiconv () {
 
-        pushd ${BUILD_ROOT}
-        rm -rf libiconv-1.15
-	tar xvf $DOWNLOADED_DEPS_PATH/libiconv-1.15.tar.gz
-        cd libiconv-1.15
+        pushd ${BUILD_ROOT}/libiconv
+	git clean -xdf
 
         LDFLAGS="$LDFLAGS_COMMON"
         android_configure --enable-static=no --enable-shared=yes
@@ -465,7 +445,6 @@ build_libiconv () {
 #############################################################
 build_libffi() {
         pushd ${BUILD_ROOT}/libffi
-        cd ../libffi
         git clean -xdf
 
         ./autogen.sh
@@ -479,8 +458,7 @@ build_libffi() {
 ### GETTEXT
 #############################################################
 build_gettext() {
-        pushd ${BUILD_ROOT}/gettext-0.21
-        cd ../gettext-0.21
+        pushd ${BUILD_ROOT}/gettext
         git clean -xdf
 
         LDFLAGS="$LDFLAGS_COMMON"

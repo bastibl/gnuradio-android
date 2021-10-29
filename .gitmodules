@@ -64,9 +64,12 @@
 [submodule "libffi"]
 	path = libffi
 	url = https://github.com/libffi/libffi/
-[submodule "gettext-0.21"]
-	path = gettext-0.21
-	url = https://github.com/ioanachelaru/gettext-0.21
-[submodule "fftw-3.3.9"]
-	path = fftw-3.3.9
-	url = https://github.com/ioanachelaru/fftw-3.3.9
+[submodule "fftw"]
+	path = fftw
+	url = https://github.com/cseci/fftw
+[submodule "gettext"]
+	path = gettext
+	url = https://github.com/cseci/gettext
+[submodule "libiconv"]
+	path = libiconv
+	url = https://github.com/cseci/libiconv
