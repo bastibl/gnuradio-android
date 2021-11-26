@@ -11,14 +11,12 @@ set -xe
 #export SYS_ROOT=$SYSROOT
 export PATH=${TOOLCHAIN_BIN}:${PATH}
 export PREFIX=$DEV_PREFIX
-export BUILD_FOLDER=./build_$ABI
+export BUILD_FOLDER=./build_${ABI}_${BUILD_TYPE}
 #export PREFIX=${BUILD_ROOT}/toolchain/$ABI
 
 mkdir -p ${PREFIX}
 
 echo $SYS_ROOT $BUILD_ROOT $PATH $PREFIX
-
-
 
 build_with_cmake() {
         cp ${BUILD_ROOT}/android_cmake.sh .
@@ -70,7 +68,7 @@ pushd ${BUILD_ROOT}/libzmq
 git clean -xdf
 
 ./autogen.sh
-./configure --enable-static --disable-shared --host=$TARGET_BINUTILS --prefix=${PREFIX} LDFLAGS="-L${PREFIX}/lib" CPPFLAGS="-fPIC -I${PREFIX}/include" LIBS="-lgcc"
+./configure --enable-shared --disable-static --build=x86_64-unknown-linux-gnu --host=$TARGET_PREFIX$API --prefix=${PREFIX} LDFLAGS="-L${PREFIX}/lib" CPPFLAGS="-fPIC -I${PREFIX}/include"
 
 make -j ${JOBS}
 make install
@@ -205,6 +203,7 @@ mkdir build
 cd build
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_NATIVE_API_LEVEL=${API} \
@@ -226,6 +225,7 @@ git clean -xdf
 mkdir build
 cd build
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
@@ -258,6 +258,7 @@ cd build
 echo "$LDFLAGS_COMMON"
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
@@ -303,6 +304,7 @@ mkdir build
 cd build
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_NATIVE_API_LEVEL=${API} \
@@ -332,6 +334,7 @@ mkdir build
 cd build
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_NATIVE_API_LEVEL=${API} \
@@ -360,6 +363,7 @@ mkdir build
 cd build
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+  -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake \
   -DANDROID_ABI=$ABI -DANDROID_ARM_NEON=ON \
   -DANDROID_STL=c++_shared \
