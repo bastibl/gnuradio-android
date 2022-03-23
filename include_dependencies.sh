@@ -389,7 +389,7 @@ build_libxml2 () {
         pushd ${BUILD_ROOT}/libxml2
         git clean -xdf
 
-	build_with_cmake -DLIBXML2_WITH_LZMA=OFF -DLIBXML2_WITH_PYTHON=OFF
+	build_with_cmake -DLIBXML2_WITH_LZMA=OFF -DLIBXML2_WITH_PYTHON=OFF -DLIBXML2_WITH_TESTS=OFF -DLIBXML2_WITH_ZLIB=OFF
 
         popd
 }
