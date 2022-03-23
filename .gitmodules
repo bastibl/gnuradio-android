@@ -1,9 +1,6 @@
 [submodule "Boost-for-Android"]
 	path = Boost-for-Android
-	url=https://github.com/bastibl/Boost-for-Android.git
-[submodule "fftw3"]
-	path = fftw3
-	url = https://github.com/bastibl/fftw-dist.git
+	url=https://github.com/moritz-wundke/Boost-for-Android.git
 [submodule "libzmq"]
 	path = libzmq
 	url = https://github.com/zeromq/libzmq.git
@@ -18,13 +15,13 @@
 	url = https://github.com/bastibl/volk.git
 [submodule "gnuradio"]
 	path = gnuradio
-	url = https://github.com/bastibl/gnuradio.git
+	url = https://github.com/adisuciu/gnuradio.git
 [submodule "libgmp"]
 	path = libgmp
 	url = https://github.com/bastibl/libgmp.git
 [submodule "libusb"]
 	path = libusb
-	url = https://github.com/bastibl/libusb.git
+	url = https://github.com/xloem/libusb.git
 [submodule "hackrf"]
 	path = hackrf
 	url = https://github.com/bastibl/hackrf.git
@@ -52,3 +49,27 @@
 [submodule "gr-ieee802-11"]
 	path = gr-ieee802-11
 	url = https://github.com/bastibl/gr-ieee802-11.git
+[submodule "gr-iio"]
+	path = gr-iio
+	url = https://github.com/analogdevicesinc/gr-iio
+[submodule "libiio"]
+	path = libiio
+	url = https://github.com/analogdevicesinc/libiio
+[submodule "libad9361-iio"]
+	path = libad9361-iio
+	url = https://github.com/analogdevicesinc/libad9361-iio
+[submodule "libxml2"]
+	path = libxml2
+	url = https://github.com/GNOME/libxml2
+[submodule "libffi"]
+	path = libffi
+	url = https://github.com/cseci/libffi/
+[submodule "fftw"]
+	path = fftw
+	url = https://github.com/cseci/fftw
+[submodule "gettext"]
+	path = gettext
+	url = https://github.com/cseci/gettext
+[submodule "libiconv"]
+	path = libiconv
+	url = https://github.com/cseci/libiconv
