@@ -29,7 +29,7 @@ This is a development environment for [GNU Radio](https://www.gnuradio.org/) on 
 
 ## Building the Toolchain
 
-The easiest way to get started is to setup a development environment in Docker. The [Dockerfile](docker/Dockerfile) also serves as documentation on how to set up a native environment.
+The easiest way to get started is to setup a development environment in Docker. The [Dockerfile](docker/Dockerfile) also serves as documentation on how to set up a native environment. There is also a pre-built image [available on DockerHub](https://hub.docker.com/layers/drewbug/android-gnuradio/latest/images/sha256-33bc7c3e60d1be96aa04e3db98352d1b5947d25c1d65ac8c94489705c0801990).
 
 - [Install Docker](https://www.docker.com/). Some installations seem to restrict the maximum container size. This container requires ~18Gb.
 
